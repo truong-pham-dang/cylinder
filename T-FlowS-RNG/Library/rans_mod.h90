@@ -1,0 +1,100 @@
+!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!
+!                                 !                                    !
+!                                 !   Bojan Niceno                     !
+!   RANS models  variable         !   Delft University of Technology   !
+!   definitions for the processor !   Section Heat Transfer             !
+!                                 !   niceno@duttwta.wt.tn.tudelft.nl  !
+!                                 !                                    !
+!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!
+!..RCS/CVS ident
+! $Id: rans_mod.h90,v 1.5 2005/01/25 12:38:53 muhamed Exp $
+! $Source: /home/muhamed/.CVSROOT/T-Rex/Library/rans_mod.h90,v $
+!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!
+
+MODULE rans_mod
+
+  USE allp_mod
+
+  IMPLICIT NONE
+
+!----- Turbulence models variables
+  TYPE(Unknown) :: KIN
+  TYPE(Unknown) :: EPS
+  TYPE(Unknown) :: V_2
+  TYPE(Unknown) :: F22
+  TYPE(Unknown) :: VIS
+
+  TYPE(Unknown) :: uu
+  TYPE(Unknown) :: vv
+  TYPE(Unknown) :: ww
+  TYPE(Unknown) :: uv
+  TYPE(Unknown) :: uw
+  TYPE(Unknown) :: vw
+
+  !new: to compare to Les - Corsin scale
+  TYPE(unknown) :: Ls
+  !d/dr (U_r) - used in TraceSeparationPoint.f90 for cylinder
+  REAl,ALLOCATABLE :: gradUphi_r(:)
+
+!----- Constants for the k-eps model:
+  REAL :: Ce1, Ce2, Ce3, Cmu, Cmu25, Cmu75, kappa, Elog
+ 
+!----- Constants for the k-eps-v2f model:
+  REAL :: CmuD, Cl, Ct, alpha, Cni, cf1, cf2, cf3, Cf_1, Cf_2
+  REAL :: Lim
+  REAL :: g1, g1_star, g2, g3, g3_star, g4, g5 
+
+!----- Constants for the Spalart-Allmaras model:
+  REAL :: Cb1, Cb2, SIGMAv, Cw1, Cw2, Cw3, Cvis1
+
+!----- Vorticity
+  REAL,ALLOCATABLE :: Vort(:), VortMean(:)
+
+!----- Turbulent viscosity
+  REAL,ALLOCATABLE :: VISt(:), CmuS(:)
+ 
+!----- Turbulent conductivity
+  REAL,ALLOCATABLE :: CONt(:)
+ 
+!----- Lenght and Time Scales
+  REAL,ALLOCATABLE :: Lsc(:)
+  REAL,ALLOCATABLE :: Tsc(:)   
+
+!----- Production of turbulent kinetic energy
+  REAL,ALLOCATABLE :: Pk(:)
+ 
+!----- Non-dimensional distance
+  REAL,ALLOCATABLE :: Ynd(:)
+ 
+!----- Friction velocity
+  REAL,ALLOCATABLE :: Uf(:)
+  REAL,ALLOCATABLE :: Ufmean(:)
+
+!----- Wall viscosity (wall function approuch)
+  REAL,ALLOCATABLE :: VISwall(:)
+
+!  REAL,ALLOCATABLE :: EE(:)
+  REAL,ALLOCATABLE :: Fs(:)
+!  REAL,ALLOCATABLE :: Feps(:)
+
+  REAL,ALLOCATABLE :: nn1(:)
+  REAL,ALLOCATABLE :: nn2(:)
+  REAL,ALLOCATABLE :: nn3(:)
+
+  REAL,ALLOCATABLE :: Bud1(:)
+  REAL,ALLOCATABLE :: Bud2(:)
+  REAL,ALLOCATABLE :: Bud3(:)
+  REAL,ALLOCATABLE :: Bud4(:)
+  REAL,ALLOCATABLE :: Bud5(:)
+  REAL,ALLOCATABLE :: Bud6(:)
+  REAL,ALLOCATABLE :: Bud7(:)
+  REAL,ALLOCATABLE :: Bud8(:)
+  REAL,ALLOCATABLE :: Bud9(:)
+ 
+  REAL,ALLOCATABLE :: uu_star(:)
+  REAL,ALLOCATABLE :: vv_star(:)
+  REAL,ALLOCATABLE :: ww_star(:)
+  REAL,ALLOCATABLE :: uv_star(:)
+  REAL,ALLOCATABLE :: uw_star(:)
+  REAL,ALLOCATABLE :: vw_star(:)
+END MODULE 

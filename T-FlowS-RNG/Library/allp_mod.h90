@@ -1,0 +1,52 @@
+!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!
+!                                 !                                    !
+!                                 !   Bojan Niceno                     !
+!      Parameter definitions      !   Delft University of Technology   !
+!         for all modules         !   Section Heat Transfer            !
+!                                 !   niceno@duttwta.wt.tn.tudelft.nl  !
+!                                 !                                    !
+!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!
+MODULE allp_mod
+
+  IMPLICIT NONE
+
+  INTEGER, PARAMETER ::          & 
+    MAXP =   200, MAXL = 1000,   &
+    MAXPRO   = 1024,             & ! max. n. of processors    
+    INFLOW   =    1,             & ! boundary condition       
+    WALL     =    2,             & ! boundary condition
+    OUTFLOW  =    3,             & ! boundary condition
+    SYMMETRY =    4,             & ! boundary condition
+    CONVECT  =    5,             & ! boundary condition
+    PRESSURE =   12,             & ! boundary condition
+    PERIODIC =   13,             & ! boundary condition
+    BUFFER   =   11,             & ! boundary condition
+    WALLFL   =    6                ! boundary condition
+
+  INTEGER, PARAMETER ::          & 
+    FLUID    =    7,             & ! material state: fluid
+    SOLID    =    8                ! material state: solid
+
+  REAL, PARAMETER ::  & 
+    HUGE=1.e+30, TINY=1.e-64
+
+!----- Unknown type
+  TYPE Unknown          
+    REAL,POINTER :: n(:)                ! new value
+    REAL,POINTER :: o(:), oo(:)         ! old and older then old
+    REAL,POINTER :: C(:), Co(:), Coo(:) ! convective fluxes
+    REAL,POINTER :: Do(:), Doo(:)       ! difussive fluxes
+    REAL,POINTER :: X(:), Xo(:), Xoo(:) ! surfce sources  
+    REAL,POINTER :: mean(:)             ! long time average
+    REAL,POINTER :: filt(:)             ! long time average
+    REAL,POINTER :: q(:)                ! flux of a variable
+    REAL,POINTER :: fluc(:) 
+    REAL         :: URF                 ! under relaxation factor
+    REAL         :: Stol                ! solver tolerance
+    REAL         :: bound(128)          ! boundary values
+    REAL         :: init(128)           ! initial values
+    REAL         :: pro(11024)           ! inlfow profile
+    REAL         :: Sigma               ! sigma
+  END TYPE Unknown
+
+END MODULE 
